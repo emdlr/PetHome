@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Mascotas</title>
+</head>
+<body id="bodyGallery">
+   <h1>Galeria de Mascotas</h1>
+   <section>
+       <form action="/adoptions/gallery" method="GET">
+       <table>
+           <tr>
+               <td>Pais:</td>
+               <td>
+                <select name="country" id="country">
+                    <option></option>
+                    <% countries.map(country =>{%>
+                        <option><%=country.country%></option>
+                    <%})%>
+                </select>
+               </td>
+           </tr>
+           <tr>
+            <td>Estado:</td>
+            <td>
+             <select name="state" id="state">
+                 <option></option>
+                 <% states.map(state =>{%>
+                     <option><%=state.state%></option>
+                 <%})%>
+             </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Ciudad:</td>
+            <td>
+             <select name="city" id="city">
+                 <option></option>
+                 <% cities.map(city =>{%>
+                     <option><%=city.city%></option>
+                 <%})%>
+             </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2 "><input type="submit" value="Buscar"></td>
+        </tr>
+       </table>
+    </form>
+   </section>
+   <main></main>
+   <footer></footer>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link href="//db.onlinewebfonts.com/c/fc5a49c391d41d90e89afde248af7921?family=maydogg" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/app.css" />
+    <title>Perfil de Mascota</title>
+  </head>
+
+  <body class="petForms">
+     <center> 
+    <h1>Perfil de <%= pet.name%> </h1>
+    <form action="/pets/profile/<%=pet.id%>?_method=PUT" method="POST">
+        <table>
+            <tr>
+                <td><b>Nombre:</b></td>
+                <td><input type="text" name="name" value=<%= pet.name%>></td>
+                <td rowspan="4">
+                         <img class="profilePic" src=<%=pic%> alt="DOG" />
+                </td>
+            </tr>
+            <tr>
+                <td><b>Pais:</b></td>
+                <td><input type="text" name="country" value=<%= pet.country %>></td>
+            </tr>
+            <tr>
+                <td><b>Estado:</b></td>
+                <td><input type="text" name="state" value=<%= pet.state %>></td>
+            </tr>
+            <tr>
+                <td><b>Ciudad:</b></td>
+                <td><input type="text" name="city" value=<%= pet.city %>></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <input type="submit" value="Editar" />
+                    </center>
+                </td>
+            </form>
+            <form action="/pets/<%=pet.id%>?_method=DELETE" method="POST">
+                <td colspan="2">
+                    <center>
+                        <input type="submit" value="Borrar" />
+                    </center>
+                </td>
+            </form>
+            <!-- <form action="/pets/new/<%=pet.id%>" method="GET">
+                <td>
+                    <center>
+                        <input id="createPet" type="submit" value="Crear Adopcion">
+                    </center>
+                </td>
+            </form> -->
+            </tr>
+        </table>
+    </center> 
+  </body>
+</html>

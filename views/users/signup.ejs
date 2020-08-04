@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+
+  <body>
+    <h1>Registro de Usuario</h1>
+
+    <form action="/auth" method="POST">
+        <table class="userForms">
+            <tr>
+                <td><b>Nombre:</b></td>
+                <td><input type="text" name="name" /></td>
+            </tr>
+            <tr>
+                <td><b>Apellido:</b></td>
+                <td><input type="text" name="lastname" /></td>
+            </tr>
+            <tr>
+                <td><b>Celular:</b></td>
+                <td><input type="text" name="telephone" /></td>
+            </tr>
+            <tr>
+                <td><b>E-mail:</b></td>
+                <td><input type="text" name="email" /></td>
+            </tr>
+            <tr>
+                <td><b>Usuario:</b></td>
+                <td><input type="text" name="username" /></td>
+            </tr>
+            <tr>
+                <td><b>Contraseña:</b></td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td><b>Pais:</b></td>
+                <td><input type="text" name="country" /></td>
+            </tr>
+            <tr>
+                <td><b>Estado:</b></td>
+                <td><input type="text" name="state" /></td>
+            </tr>
+            <tr>
+                <td><b>Ciudad:</b></td>
+                <td><input type="text" name="city" /></td>
+            </tr>
+            <tr>
+                <td><b>ZIP:</b></td>
+                <td><input type="text" name="zip" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <% roles.forEach((role) =>{%>
+                    <input type="checkbox" id="role<%=role.id%>" name="role" value= <%=role.id%>>
+                    <label for="role<%=role.id%>"> <%=role.role%></label><br>
+                <%})%>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <input type="submit" value="Registrar" />
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </form>
+  </body>
+</html>

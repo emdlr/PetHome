@@ -4,39 +4,64 @@ module.exports = {
     await queryInterface.createTable('Pets', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+          model:'Users',
+          key:'id'
+        },
+        onDelete:'cascade'
       },
-      status: {
-        type: Sequelize.STRING
+      statusId: {
+        allowNull:false,
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Statuses',
+          key:'id'
+        }
       },
       name: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       type: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       country: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       state: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       city: {
+        allowNull:false,
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       }
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ["id","userId", "statusId"],
+        },
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {

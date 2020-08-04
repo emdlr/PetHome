@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+
+  <body>
+    <h1>Bienvenido <%= user.name%> </h1>
+
+    <form action="/auth/profile/<%=user.id%>?_method=PUT" method="POST">
+        <table class="userForms">
+            <tr>
+                <td><b>Nombre:</b></td>
+                <td><input type="text" name="name" value=<%= user.name%>></td>
+            </tr>
+            <tr>
+                <td><b>Apellido:</b></td>
+                <td><input type="text" name="lastname" value=<%= user.lastname%>></td>
+            </tr>
+            <tr>
+                <td><b>Celular:</b></td>
+                <td><input type="text" name="telephone" value=<%= user.telephone%>> </td>
+            </tr>
+            <tr>
+                <td><b>E-mail:</b></td>
+                <td><input type="text" name="email" value=<%= user.email%>></td>
+            </tr>
+            <tr>
+                <td><b>Usuario:</b></td>
+                <td><input type="text" name="username" value=<%= user.username %>></td>
+            </tr>
+            <tr>
+                <td><b>Contraseña:</b></td>
+                <td><input type="password" name="password" value=<%= user.password %>></td>
+            </tr>
+            <tr>
+                <td><b>Pais:</b></td>
+                <td><input type="text" name="country" value=<%= user.country %>></td>
+            </tr>
+            <tr>
+                <td><b>Estado:</b></td>
+                <td><input type="text" name="state" value=<%= user.state %>></td>
+            </tr>
+            <tr>
+                <td><b>Ciudad:</b></td>
+                <td><input type="text" name="city" value=<%= user.city %>></td>
+            </tr>
+            <tr>
+                <td><b>ZIP:</b></td>
+                <td><input type="text" name="zip" value=<%= user.zip %>></td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
+                        <input type="submit" value="Editar" />
+                    </center>
+                </td>
+            </form>
+            <form action="/users/<%=user.id%>?_method=DELETE" method="POST">
+                <td>
+                    <center>
+                        <input type="submit" value="Borrar" />
+                    </center>
+                </td>
+            </form>
+            <form action="/pets/new/<%=user.id%>" method="GET">
+                <td>
+                    <center>
+                        <input id="createPet" type="submit" value="Crear Adopcion">
+                    </center>
+                </td>
+            </form>
+            </tr>
+        </table>
+  </body>
+</html>

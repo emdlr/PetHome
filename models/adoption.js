@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   Adoption.init({
     petId: DataTypes.INTEGER,
     adopterId: DataTypes.INTEGER,
-    statusId: DataTypes.INTEGER,
     adoptionDate: DataTypes.DATE,
     rejectionDate: DataTypes.DATE,
     cancelDate: DataTypes.DATE

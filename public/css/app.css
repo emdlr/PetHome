@@ -1,0 +1,132 @@
+#bodyHome{
+    /* background: blue; */
+    width: 99vw;
+    height: 99vh;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-rows: 60% 37% 3%; 
+    grid-template-columns: 1fr;
+    border: 1px solid black;
+    font-family: 'maydogg';
+}
+#headerHome{
+    grid-row: 1;
+    background: url('../img/paw.png') white;
+    background-repeat: no-repeat;
+    background-size:30% 100%;
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+#mainHome{
+    grid-row: 2;
+    /* background: green; */
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+#footerHome{
+    grid-row: 3;
+    /* background: yellow; */
+    height: 100%;
+    border: 1px solid black;
+    
+}
+#mPhrase{
+    font-size: 3vw;
+    text-shadow: 0 0 1px #0059ff, 0 0 0.5vw  #FF0000; 
+    -webkit-animation-name: rinbow;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+}
+#mAction {
+    border-radius: 1em;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 3vw;
+    font-weight: bold;
+}
+.actions,
+#actions {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: bold;
+}
+/* div{
+    border: 1px solid black;
+} */
+.galPic{
+    border-radius: 60px;
+    width: 10vw;
+    height: 10vh;
+}
+
+#hHome1{
+    font-size: 5vw;
+    padding-right: 2vw;
+    -webkit-text-stroke-width: 2px; 
+    /* -webkit-text-stroke-color: yellow ; */
+    text-shadow: 0 0 1px #0059ff, 0 0 0.5vw  #FF0000; 
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 1s; /* Firefox < 16 */
+     -ms-animation: fadein 1s; /* Internet Explorer */
+
+}
+#bigH{
+    font-size: 15vw;
+    font-style: italic;
+}
+#fHome{
+    text-align: center;
+    font-size: 1vw;
+}
+.petForms{
+    font-family: 'maydogg';
+}
+td{
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: bolder;
+}
+.profilePic{
+    border-radius: 60px;
+    width: 30vw;
+    height: 30vh;
+}
+
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@-webkit-keyframes rinbow {
+    0% {color: tomato;}
+    10% {color:orange;}
+    20% {color:yellow;}
+    30% {color: greenyellow;}
+    40% {color: limegreen;}
+    50% {color: green;}
+    60% {color: aquamarine;}
+    70% {color: aqua;}
+    80% {color: blue;}
+    90% {color: magenta;}
+    100% {color: purple;}
+};

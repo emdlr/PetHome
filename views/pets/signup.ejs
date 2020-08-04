@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+
+  <body>
+    <h1>Registro de Mascota</h1>
+
+    <form action="/pets/new" method="POST">
+        <table class="petForms">
+            <tr>
+                <td><b>Usiario:</b></td>
+                <td><input type="text" name="username" value="<%=user.username%>" disabled></td>
+            </tr>
+            <tr>
+                <td><b>Nombre:</b></td>
+                <td><input type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td><b>Tipo:</b></td>
+                <td><input type="text" name="type" /></td>
+            </tr>
+            <tr>
+                <td><b>Pais:</b></td>
+                <td><input type="text" name="country" /></td>
+            </tr>
+            <tr>
+                <td><b>Estado:</b></td>
+                <td><input type="text" name="state" /></td>
+            </tr>
+            <tr>
+                <td><b>Ciudad:</b></td>
+                <td><input type="text" name="city" /></td>
+            </tr>
+            <tr>
+                <td><b>Fotos:</b></td>
+                <td><input type="text" name="picture" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <input type="submit" value="Registrar" />
+                    </center>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="userId" value="<%=user.id%>">
+        <input type="hidden" name="ownerId" value="<%=user.id%>">
+        <input type="hidden" name="statusId" value="1">
+    </form>
+  </body>
+</html>

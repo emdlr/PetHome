@@ -1,14 +1,31 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Roles', {
+    await queryInterface.createTable('Pictures', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      role: {
+      ownerId: {
+        allowNull:false,
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Users',
+          key:'id'
+        }
+      },
+      petId: {
+        allowNull:false,
+        type: Sequelize.INTEGER,
+        references:{
+          model:'Pets',
+          key:'id'
+        },
+        onDelete:'cascade'
+      },
+      picture: {
         allowNull:false,
         type: Sequelize.STRING
       },
@@ -22,9 +39,9 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date()
       }
-    });
+    }).then(() => queryInterface.addIndex('Pictures', ['ownerId']));
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Roles');
+    await queryInterface.dropTable('Pictures');
   }
 };

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//db.onlinewebfonts.com/c/fc5a49c391d41d90e89afde248af7921?family=maydogg" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <title>Galeria de Mascotas</title>
+</head>
+<body id="bodyGallery">
+    <center>
+        <h1>Galeria de Mascotas</h1>
+        <section>
+            <table>
+                <th colspan="3">Mascotas en</th>
+                <tr>
+                    <td>Pais</td>
+                    <td>Estado</td>
+                    <td>Ciudad</td>
+                </tr>
+                <tr>
+                        <td><%=location.country%></td>
+                        <td><%=location.state%></td>
+                        <td><%=location.city%></td>
+                </tr>
+            </table>
+        </section>
+        <main>
+            <% pets.map((pet,i) =>{ %>
+                <div>
+                    <div><%=pet.name%></div>
+                    <% let path = `/pets/profile/${pet.id}`; %> 
+                    <a href=<%=path%>>
+                         <img class="galPic" src=<%= pet.Pictures[i].picture %> alt=<%=pet.name%> >
+                    </a>
+                    <div><%=pet.country%>,<%=pet.state%>,<%=pet.city%></div>
+                </div>
+            <%})%>
+        </main>
+        <footer></footer>
+   </center>
+</body>
+</html>

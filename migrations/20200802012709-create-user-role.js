@@ -1,38 +1,30 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Adoptions', {
+    await queryInterface.createTable('UserRoles', {
       id: {
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
         type: Sequelize.INTEGER,
       },
-      petId: {
+      roleId: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
-          model:'Pets',//Table name
+          model:'Roles',
           key:'id'
-        }
+        },
+        onDelete: 'cascade'
       },
-      adopterId: {
+      userId: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
           model:'Users',
           key:'id'
-        }
-      },
-      adoptionDate: {
-        type: Sequelize.DATE
-      },
-      rejectionDate: {
-        type: Sequelize.DATE
-      },
-      cancelDate: {
-        type: Sequelize.DATE
+        },
+        onDelete:'cascade'
       },
       createdAt: {
         allowNull: false,
@@ -43,10 +35,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()
-      }
+      },
+    },
+    {
+      uniqueKeys: {
+     actions_unique: {
+            fields: ["roleId", "userId"],
+          },
+        },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Adoptions');
+    await queryInterface.dropTable('UserRoles');
   }
 };

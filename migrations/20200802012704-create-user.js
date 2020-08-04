@@ -8,37 +8,56 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      lastname: {
+        allowNull: false,
         type: Sequelize.STRING
       },
+      username: {
+        allowNull: false,
+        type: Sequelize.STRING,
+        unique:true
+      },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       telephone: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       country: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       state: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       city: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       zip: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       }
     });
   },
