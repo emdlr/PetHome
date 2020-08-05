@@ -26,16 +26,30 @@
             </table>
         </section>
         <main>
-            <% pets.map((pet,i) =>{ %>
+            <% if(!isMore){
+                pets.forEach((pet,i) =>{ %>
                 <div>
                     <div><%=pet.name%></div>
-                    <% let path = `/pets/profile/${pet.id}`; %> 
+                    <% let path = `/pets/profile/${pet.id}`;%> 
                     <a href=<%=path%>>
                          <img class="galPic" src=<%= pet.Pictures[i].picture %> alt=<%=pet.name%> >
                     </a>
-                    <div><%=pet.country%>,<%=pet.state%>,<%=pet.city%></div>
+                    <div><%=pet.country%>, <%=pet.state%>, <%=pet.city%></div>
                 </div>
-            <%})%>
+            <%})}else{
+                pets.forEach(pet =>{ 
+                    pet.Pictures.forEach(img=>{%>
+                        <div>
+                            <div><%=pet.name%></div>
+                            <% let path = `/pets/profile/${pet.id}`;%> 
+                            <a href=<%=path%>>
+                                <img class="galPic" src=<%= img.picture %> alt=<%=pet.name%> >
+                            </a>
+                            <div><%=pet.country%>,<%=pet.state%>,<%=pet.city%></div>
+                        </div>
+                    <%})
+                })
+            }%>
         </main>
         <footer></footer>
    </center>

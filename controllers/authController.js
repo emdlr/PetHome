@@ -15,7 +15,7 @@ router.get("/signup", (req, res) => {
     res.render("users/signup.ejs",{roles:roles});
   });
 });
-  
+
 // POST - CREATE NEW USER FROM SIGNUP
 router.post("/", (req, res) => {
     bcrypt.genSalt(10, (err, salt) => {

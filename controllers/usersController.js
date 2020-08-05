@@ -13,13 +13,15 @@ const Role = require("../models").Role;
       include: [
         {
           model: Pet,
-          attributes: ["name"]
+          attributes: ["id","name"]
         },
         {
-          model: Role
+          model: Role,
+          attributes:["role"]
         }
       ]
     }).then((userProfile) => {
+      console.log(userProfile)
       res.render("users/profile.ejs", {
         user: userProfile,
       });

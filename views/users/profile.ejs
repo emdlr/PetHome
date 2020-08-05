@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="css/app.css" />
+    <link href="//db.onlinewebfonts.com/c/fc5a49c391d41d90e89afde248af7921?family=maydogg" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <title>Perfil de Usuario</title>
   </head>
-
   <body>
     <h1>Bienvenido <%= user.name%> </h1>
-
+    <section>
     <form action="/auth/profile/<%=user.id%>?_method=PUT" method="POST">
         <table class="userForms">
             <tr>
@@ -74,5 +74,16 @@
             </form>
             </tr>
         </table>
+    </section>
+    <section>
+        <h3>Mis Mascotas en Adopcion</h3>
+        <ul>
+        <% user.Pets.forEach(pet =>{
+            let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
+            <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </li>
+        <%})%>
+       </ul>
+    </section>
+
   </body>
 </html>

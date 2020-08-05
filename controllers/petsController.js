@@ -19,10 +19,22 @@ router.get("/new/:id",(req,res) =>{
 router.get("/profile/:id",(req,res) =>{
   Pet.findByPk(req.params.id).then((pet)=>{
     Picture.findOne({where:{ownerId:pet.userId,petId:pet.id}}).then((pic)=>{
-       res.render('pets/profile.ejs',{pet:pet,pic:pic.picture})
+      const usr = req.query.own;
+      console.log(usr);
+      if(usr==""||usr==undefined) 
+         res.render('pets/viewprofile.ejs',{pet:pet,pic:pic.picture});
+      else
+         res.render('pets/profile.ejs',{pet:pet,pic:pic.picture});
     });
   });
 });
+// router.get("/profile/view/:id",(req,res) =>{
+//   Pet.findByPk(req.params.id).then((pet)=>{
+//     Picture.findOne({where:{ownerId:pet.userId,petId:pet.id}}).then((pic)=>{
+//        res.render('pets/viewprofile.ejs',{pet:pet,pic:pic.picture})
+//     });
+//   });
+// });
 router.post("/new", (req,res) =>{
     Pet.create(req.body).then((newPet)=>{
       req.body.petId =newPet.id;

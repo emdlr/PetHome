@@ -21,9 +21,9 @@ router.get("/", (req,res) =>{
 });
 router.get("/gallery", (req,res) =>{
     let location = req.query;
-    if((location.country!=""&&location.country!=undefined)&&
-        (location.state!=""&&location.state!=undefined)&&
-        (location.city!=""&&location.city!=undefined)){
+    let isMoreOne=false;
+    if(location.country!=""&&location.state!=""&&location.city!=""){
+            console.log('entra aqui 3')
         Pet.findAll({where: {
                             country:{[$iLike]:location.country},
                             state:{[$iLike]:location.state},
@@ -36,11 +36,13 @@ router.get("/gallery", (req,res) =>{
                             ],
                             attributes: ["id","name", "country", "state","city"] 
             }).then((pets) =>{
-                    res.render("adoptions/gallery.ejs",{pets:pets,location:location});
+                console.log(pets)
+                isMoreOne=pets.length>1?true:false;
+                console.log(isMoreOne)
+                    res.render("adoptions/gallery.ejs",{pets:pets,location:location,isMore:isMoreOne});
         });
-    } else if ((location.country!=""&&location.country!=undefined)&&
-             (location.state!=""&&location.state!=undefined)&&
-             (location.city==""||location.city==undefined)){
+    } else if (location.country!=""&&location.state!=""&&location.city==""){
+                console.log('entra aqui 2')
             Pet.findAll({where: {
                                 country:{[$iLike]:location.country},
                                 state:{[$iLike]:location.state}},
@@ -52,11 +54,13 @@ router.get("/gallery", (req,res) =>{
                                 ],
                                 attributes: ["id","name", "country", "state","city"] 
                 }).then((pets) =>{
-                        res.render("adoptions/gallery.ejs",{pets:pets,location:location});
+                    console.log(pets)
+                    isMoreOne=pets.length>1?true:false;
+                    console.log(isMoreOne)
+                        res.render("adoptions/gallery.ejs",{pets:pets,location:location,isMore:isMoreOne});
             });
-    }else if ((location.country!=""&&location.country!=undefined)&&
-            (location.state==""&&location.state==undefined)&&
-            (location.city==""||location.city==undefined)){
+    }else if (location.country!=""&&location.state==""&&location.city==""){
+                console.log('entra aqui 1')
         Pet.findAll({where: {country:{[$iLike]:location.country}},
                             include: [
                                 {
@@ -66,9 +70,14 @@ router.get("/gallery", (req,res) =>{
                             ],
                             attributes: ["id","name", "country", "state","city"] 
             }).then((pets) =>{
-                    res.render("adoptions/gallery.ejs",{pets:pets,location:location});
+                console.log(pets)
+                isMoreOne=pets.length>1?true:false;
+                console.log(isMoreOne)
+                    res.render("adoptions/gallery.ejs",{pets:pets,location:location,isMore:isMoreOne});
         });
     }else {
+        console.log('entra aqui 4')
+        console.log(location)
             Pet.findAll({
                 include: [
                   {
@@ -78,7 +87,9 @@ router.get("/gallery", (req,res) =>{
                 ],
                 attributes: ["id","name", "country", "state","city"]
         }).then((pets) =>{
-                res.render("adoptions/gallery.ejs",{pets:pets,location:location});
+            isMoreOne=pets.length>1?true:false;
+            console.log(isMoreOne)
+                res.render("adoptions/gallery.ejs",{pets:pets,location:location,isMore:isMoreOne});
             });
     }
 });
