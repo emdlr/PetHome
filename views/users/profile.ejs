@@ -75,6 +75,8 @@
             </tr>
         </table>
     </section>
+     
+    <% if(isOwner){ %>
     <section>
         <h3>Mis Mascotas en Adopcion</h3>
         <ul>
@@ -84,6 +86,17 @@
         <%})%>
        </ul>
     </section>
-
+    <%};
+    if(isAdopter){%>
+        <section>
+            <h3>Mis Mascotas Adoptadas</h3>
+            <ul>
+            <% user.Pets.forEach(pet =>{
+                let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
+                <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </li>
+            <%})%>
+           </ul>
+        </section>
+    <%}%>
   </body>
 </html>

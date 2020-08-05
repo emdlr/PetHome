@@ -1,5 +1,6 @@
 const express = require('express');
 const sequelize = require('sequelize');
+const user = require('../models/user');
 const router = express.Router();
 let isCorrect='';
 
@@ -17,13 +18,27 @@ const Role = require("../models").Role;
         },
         {
           model: Role,
-          attributes:["role"]
+          attributes:["id"]
         }
       ]
     }).then((userProfile) => {
       console.log(userProfile)
+
+      let own=false;
+      let adp=false;
+
+        for(let i=0;i<userProfile.Roles.length;i++)      
+          if(userProfile.Roles[i].id==1)
+            own=true;
+
+        for(let i=0;i<userProfile.Roles.length;i++)      
+          if(userProfile.Roles[i].id==2)
+            adp=true;    
+
       res.render("users/profile.ejs", {
         user: userProfile,
+        isOwner:own,
+        isAdopter:adp
       });
     });
   });
