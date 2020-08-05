@@ -119,10 +119,12 @@ router.get("/:id",(req,res)=>{
     })
   })
 })
-router.post("/new",(req,res)=>{
+router.post("/",(req,res)=>{
     console.log(req.body)
     Adoption.create(req.body).then(newAdoption=>{
-        res.send('Animal en Proceso');
+        Pet.update({statusId:"2"}, {where: {id: newAdoption.petId},returning: true}).then(() => {
+            res.send("En Proceso");
+      });
     })
   })
 module.exports = router;

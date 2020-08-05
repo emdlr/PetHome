@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Pet.hasOne(models.Status, { foreignKey: "id" });
       Pet.hasMany(models.Picture, { foreignKey: "petId" });
       
-      Pet.hasOne(models.User, { foreignKey: "id" });
+      // Pet.hasOne(models.User, { foreignKey: "id" });
     }
   }
   Pet.init({
