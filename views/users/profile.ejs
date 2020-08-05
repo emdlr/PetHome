@@ -82,7 +82,7 @@
         <ul>
         <% user.Pets.forEach(pet =>{
             let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
-            <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </li>
+            <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </a> </li>
         <%})%>
        </ul>
     </section>
@@ -93,10 +93,15 @@
             <ul>
             <% user.Pets.forEach(pet =>{
                 let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
-                <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </li>
+                <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </a> </li>
             <%})%>
            </ul>
         </section>
+        <section>
+            <% let path=`/adoptions?own=${user.id}`%>
+         <a href=<%= path %> alt='Gallery' ><div>Ir a Galeria </div></a>
+        </section>
     <%}%>
+
   </body>
 </html>

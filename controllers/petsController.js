@@ -17,14 +17,23 @@ router.get("/new/:id",(req,res) =>{
   });
 });
 router.get("/profile/:id",(req,res) =>{
+  let showAdopt="Y";
   Pet.findByPk(req.params.id).then((pet)=>{
     Picture.findOne({where:{ownerId:pet.userId,petId:pet.id}}).then((pic)=>{
-      const usr = req.query.own;
-      console.log(usr);
-      if(usr==""||usr==undefined) 
-         res.render('pets/viewprofile.ejs',{pet:pet,pic:pic.picture});
+      const usr = (req.query.own!=""||req.query.own!=undefined)?req.query.own:"";
+
+      if(pet.userId==usr)
+          showAdopt="N";
+  
+      console.log(pet.userId)
+      console.log(usr)
+      console.log(showAdopt)
+
+      if(usr=="") 
+         res.render('pets/viewprofile.ejs',{pet:pet,pic:pic,showAdopt:"N"});
       else
-         res.render('pets/profile.ejs',{pet:pet,pic:pic.picture});
+         res.render('pets/profile.ejs',{pet:pet,pic:pic,showAdopt:showAdopt,own:usr});
+
     });
   });
 });

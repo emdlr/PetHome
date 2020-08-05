@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="/css/app.css" />
     <title>Perfil de Mascota</title>
   </head>
-
   <body class="petForms">
      <center> 
     <h1>Perfil de <%= pet.name%> </h1>
@@ -16,7 +15,7 @@
                 <td><b>Nombre:</b></td>
                 <td><input type="text" name="name" value=<%= pet.name%>></td>
                 <td rowspan="4">
-                         <img class="profilePic" src=<%=pic%> alt="DOG" />
+                         <img class="profilePic" src=<%=pic.picture%> alt="DOG" />
                 </td>
             </tr>
             <tr>
@@ -35,29 +34,30 @@
                 <td><b>Descripcion:</b></td>
                 <td><textarea name="description"><%= pet.description %></textarea></td>
             </tr>
-            <tr>
-                <td colspan="2">
-                    <center>
-                        <input type="submit" value="Editar" />
-                    </center>
-                </td>
-            </form>
-            <form action="/pets/<%=pet.id%>?_method=DELETE" method="POST">
-                <td colspan="2">
-                    <center>
-                        <input type="submit" value="Borrar" />
-                    </center>
-                </td>
-            </form>
-            <!-- <form action="/pets/new/<%=pet.id%>" method="GET">
-                <td>
-                    <center>
-                        <input id="createPet" type="submit" value="Crear Adopcion">
-                    </center>
-                </td>
-            </form> -->
+            <% if(showAdopt=="N"){%>
+                <tr>
+                    <td colspan="2">
+                        <center>
+                            <input type="submit" value="Editar" />
+                        </center>
+                    </td>
+                </form>
+                <form action="/pets/<%=pet.id%>?_method=DELETE" method="POST">
+                    <td colspan="2">
+                        <center>
+                            <input type="submit" value="Borrar" />
+                        </center>
+                    </td>
+                </form>
             </tr>
         </table>
+        <%} else {
+            let route = `/adoptions/${pet.id}?own=${own}&pic=${pic.id}`;%>
+        </table>
+                <div>
+                    <a href=<%=route%> class="button">Adoptar</a>
+                </div>
+        <%}%>
     </center> 
   </body>
 </html>

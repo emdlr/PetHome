@@ -26,11 +26,12 @@
             </table>
         </section>
         <main>
+           <% let own= (location.own!=""||location.own!=undefined)?location.own:"";%>
             <% if(!isMore){
                 pets.forEach((pet,i) =>{ %>
                 <div>
                     <div><%=pet.name%></div>
-                    <% let path = `/pets/profile/${pet.id}`;%> 
+                    <%  let path = (own!="")?`/pets/profile/${pet.id}?own=${own}`:`/pets/profile/${pet.id}`;%>
                     <a href=<%=path%>>
                          <img class="galPic" src=<%= pet.Pictures[i].picture %> alt=<%=pet.name%> >
                     </a>
@@ -41,7 +42,7 @@
                     pet.Pictures.forEach(img=>{%>
                         <div>
                             <div><%=pet.name%></div>
-                            <% let path = `/pets/profile/${pet.id}`;%> 
+                            <%  let path = (own!="")?`/pets/profile/${pet.id}?own=${own}`:`/pets/profile/${pet.id}`;%>
                             <a href=<%=path%>>
                                 <img class="galPic" src=<%= img.picture %> alt=<%=pet.name%> >
                             </a>

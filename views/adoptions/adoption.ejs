@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//db.onlinewebfonts.com/c/fc5a49c391d41d90e89afde248af7921?family=maydogg" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/css/app.css"/>
+    <title>Confirmacion Adopcion</title>
+</head>
+<body id="bodyGallery">
+   <h1>Confirmacion de Adopcion</h1>
+   <section>
+       <form action="/adoptions/new" method="POST">
+       <table>
+           <tr>
+               <td>Propietario:</td>
+               <td>
+                   <input type="text" value=<%=petowner.name %> disabled>
+               </td>
+           </tr>
+           <tr>
+            <td>Correo:</td>
+            <td>
+                <input type="text" value=<%=petowner.email %> disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>Nombre Mascota:</td>
+            <td>
+                <input type="text" value=<%=pet.name %> disabled>
+            </td>
+        </tr>
+        <tr>
+            <td>Localizacion:</td>
+            <td>
+                <% let loc = `${pet.country},${pet.state},${pet.city}`; %> 
+                <input type="text" value=<%=loc%> disabled>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <img class="galPic" src=<%= pic %> alt=<%=pet.name %> >
+            </td>
+        </tr>
+        <tr>
+            <td>Mensaje:</td>
+            <td>
+                <textarea name="message"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Confirmar" >
+            </td>
+        </tr>
+       </table>
+       <input type="hidden" name="petId" value=<%=pet.id %> >
+       <input type="hidden" name="adopterId" value=<%=adopterId%> >
+    </form>
+   </section>
+</body>
+</html>
