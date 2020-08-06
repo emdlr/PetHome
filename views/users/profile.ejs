@@ -79,29 +79,53 @@
     <% if(isOwner){ %>
     <section>
         <h3>Mis Mascotas en Adopcion</h3>
-        <ul>
-        <% user.Pets.forEach(pet =>{
-            let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
-            <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </a> </li>
-        <%})%>
-       </ul>
+        <form action="/adoptions?_method=PUT" method="POST">
+                <table>
+                    <% user.Pets.forEach(pet =>{
+                        let path = `/pets/profile/${pet.id}?own=${user.id}`; %>
+                        <tr>
+                            <td><a href=<%= path %> alt=<%=pet.name%> > <%= pet.name %> </a></td>
+                            <% let status='';
+                            if(pet.statusId==1) {
+                                status='EN ADOPCION';%>
+                                <td> <%=status%> </td>
+                            <%}else{status='PENDIENTE POR APROBACION';%>
+                                <td> <%=status%> </td>
+                                <td>
+                                        <input type="radio" name=<%=pet.id%> value="A">
+                                        <label for="approve">Aprobar</label>
+                                        <input type="radio" name=<%=pet.id%> value="R">
+                                        <label for="reject">Rechazar</label>
+                                        <input type="radio" name=<%=pet.id%> value="C">
+                                        <label for="cancel">Cancelar</label>
+                                </td>
+                        </tr> 
+                    <%}})%>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>                                
+                            <input type="submit" value="Procesar">
+                        </td>
+                    </tr>
+                </table>
+        </form>
     </section>
     <%};
     if(isAdopter){%>
         <section>
-            <h3>Mis Mascotas Adoptadas</h3>
+            <h3>Mis Adopiones</h3>
             <ul>
-            <% user.Pets.forEach(pet =>{
+            <% adpingPets.forEach(pet =>{
                 let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
                 <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </a> </li>
             <%})%>
            </ul>
         </section>
+    <%}%>
         <section>
             <% let path=`/adoptions?own=${user.id}`%>
-         <a href=<%= path %> alt='Gallery' ><div>Ir a Galeria </div></a>
+        <a href=<%= path %> alt='Gallery' ><div>Ir a Galeria </div></a>
         </section>
-    <%}%>
-
   </body>
 </html>

@@ -51,13 +51,15 @@
                 </form>
             </tr>
         </table>
-        <%} else {
-            let route = `/adoptions/${pet.id}?own=${own}&pic=${pic.id}`;%>
+        <%} else {%>
         </table>
+              <%if(own!=""){
+                let route = `/adoptions/${pet.id}?own=${own}&pic=${pic.id}`;%>
                 <div>
                     <a href=<%=route%> class="button">Adoptar</a>
                 </div>
-        <%}%>
+        <%}
+    }%>
     </center> 
   </body>
 </html>

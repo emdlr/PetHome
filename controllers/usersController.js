@@ -4,9 +4,15 @@ const user = require('../models/user');
 const router = express.Router();
 let isCorrect='';
 
+$notIn = sequelize.Op.notIn;
+$in = sequelize.Op.in;
+$ne = sequelize.Op.ne;
+
 const User = require("../models").User;
 const Pet = require('../models').Pet;//Bringing object to make joins with this model
 const Role = require("../models").Role;
+const Adoption = require("../models").Adoption;
+const Status = require("../models").Status;
 
   // GET USERS PROFILE
   router.get("/profile/:id", (req, res) => {
@@ -14,31 +20,46 @@ const Role = require("../models").Role;
       include: [
         {
           model: Pet,
-          attributes: ["id","name"]
+          where: {statusId:{[$ne]:[3]}},
+          attributes: ["id","name","statusId"]
+        },
+        {
+          model: Adoption,//Adopciones que yo solicite
+          attributes: ["petId"]
         },
         {
           model: Role,
           attributes:["id"]
         }
       ]
-    }).then((userProfile) => {
-      console.log(userProfile)
+    }).then((usrP) => {
+      let myAdoptings=[];
+      for(let i=0;i<usrP.Adoptions.length;i++) 
+          myAdoptings.push(usrP.Adoptions[i].petId)
 
       let own=false;
       let adp=false;
 
-        for(let i=0;i<userProfile.Roles.length;i++)      
-          if(userProfile.Roles[i].id==1)
+        for(let i=0;i<usrP.Roles.length;i++)      
+          if(usrP.Roles[i].id==1)
             own=true;
 
-        for(let i=0;i<userProfile.Roles.length;i++)      
-          if(userProfile.Roles[i].id==2)
-            adp=true;    
+        for(let i=0;i<usrP.Roles.length;i++)      
+          if((usrP.Roles[i].id==2)&&(myAdoptings.length>0))
+             adp=true;   
 
-      res.render("users/profile.ejs", {
-        user: userProfile,
-        isOwner:own,
-        isAdopter:adp
+        myAdoptings.length>0?true:myAdoptings.push(-1);
+        Pet.findAll({where: {
+                            id:{[$in]:[myAdoptings]},
+                            statusId:{[$in]:[2,3]}},
+                            attributes: ["id","name"]}).then(adpPets=>{
+            console.log(adpPets)
+             res.render("users/profile.ejs", {
+              user: usrP,
+              isOwner:own,
+              adpingPets:adpPets,
+              isAdopter:adp
+        });
       });
     });
   });

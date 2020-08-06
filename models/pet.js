@@ -11,8 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       //   foreignKey: "petId",
       //   otherKey: "adopterId",
       // });
-      Pet.hasOne(models.Status, { foreignKey: "id" });
+      Pet.belongsTo(models.Status,{foreignKey:"statusId"}) 
+  
+      
       Pet.hasMany(models.Picture, { foreignKey: "petId" });
+      
       
       // Pet.hasOne(models.User, { foreignKey: "id" });
     }

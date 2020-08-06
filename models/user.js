@@ -11,19 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.hasMany(models.Pet, { foreignKey: "userId" });
+
+      User.hasMany(models.Adoption,{foreignKey:"adopterId"});
+      
       User.belongsToMany(models.Role, {
         through: "UserRole",
         foreignKey: "userId",
         otherKey: "roleId",
       });
-
-      // User.belongsTo(models.Pet, { foreignKey: "userId" });
-      
-      // User.belongsToMany(models.Pet, {
-      //   through: "Adoption",
-      //   foreignKey: "adopterId",
-      //   otherKey: "petId",
-      // });
     }
   };
   User.init({

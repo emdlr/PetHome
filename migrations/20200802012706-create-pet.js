@@ -45,6 +45,9 @@ module.exports = {
         allowNull:false,
         type: Sequelize.STRING
       },
+      description: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -55,13 +58,6 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date()
       }
-    },
-    {
-      uniqueKeys: {
-        actions_unique: {
-          fields: ["id","userId", "statusId"],
-        },
-      },
     });
   },
   down: async (queryInterface, Sequelize) => {

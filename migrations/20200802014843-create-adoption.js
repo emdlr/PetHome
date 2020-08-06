@@ -10,7 +10,6 @@ module.exports = {
       },
       petId: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
           model:'Pets',//Table name
@@ -19,7 +18,6 @@ module.exports = {
       },
       adopterId: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER,
         references:{
           model:'Users',
@@ -44,8 +42,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()
-      }
-    });
+      },
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ["petId", "adopterId"],
+        },
+      },
+    }
+    );
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Adoptions');

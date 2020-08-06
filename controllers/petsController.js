@@ -18,43 +18,34 @@ router.get("/new/:id",(req,res) =>{
 });
 router.get("/profile/:id",(req,res) =>{
   let showAdopt="Y";
+  console.log(req.params)
   Pet.findByPk(req.params.id).then((pet)=>{
     Picture.findOne({where:{ownerId:pet.userId,petId:pet.id}}).then((pic)=>{
-      const usr = (req.query.own!=""||req.query.own!=undefined)?req.query.own:"";
+      const usr = (req.query.own!=""&&req.query.own!==undefined)?req.query.own:"";
 
       if(pet.userId==usr)
           showAdopt="N";
-  
-      console.log(pet.userId)
-      console.log(usr)
-      console.log(showAdopt)
 
-      if(usr=="") 
-         res.render('pets/viewprofile.ejs',{pet:pet,pic:pic,showAdopt:"N"});
+      if(usr==="") 
+         res.render('pets/viewprofile.ejs',{pet:pet,pic:pic,own:usr,showAdopt:"N"});
       else
          res.render('pets/profile.ejs',{pet:pet,pic:pic,showAdopt:showAdopt,own:usr});
 
     });
   });
 });
-// router.get("/profile/view/:id",(req,res) =>{
-//   Pet.findByPk(req.params.id).then((pet)=>{
-//     Picture.findOne({where:{ownerId:pet.userId,petId:pet.id}}).then((pic)=>{
-//        res.render('pets/viewprofile.ejs',{pet:pet,pic:pic.picture})
-//     });
-//   });
-// });
 router.post("/new", (req,res) =>{
     Pet.create(req.body).then((newPet)=>{
       req.body.petId =newPet.id;
       Picture.create(req.body).then((newPic)=>{
-        res.redirect(`/pets/profile/${newPet.id}`);
+        res.redirect(`/pets/profile/${newPet.id}?own=${req.body.userId}`);
       })
     }) 
 })
 router.put("/profile/:id", (req, res) => {
-  Pet.update(req.body, {where: {id: req.params.id },returning: true}).then(() => {
-        res.redirect(`/pets/profile/${req.params.id}`);
+  Pet.update(req.body, {where: {id: req.params.id },returning: true}).then((updPet) => {
+        const own = updPet[1][0].userId;    
+        res.redirect(`/pets/profile/${req.params.id}?own=${own}`);
   });
 });
 router.delete("/:id", (req, res) => {
