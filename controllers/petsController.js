@@ -26,7 +26,7 @@ router.get("/profile/:id",(req,res) =>{
       if(pet.userId==usr)
           showAdopt="N";
 
-      if(usr==="") 
+      if(usr==""||pet.statusId!=1) 
          res.render('pets/viewprofile.ejs',{pet:pet,pic:pic,own:usr,showAdopt:"N"});
       else
          res.render('pets/profile.ejs',{pet:pet,pic:pic,showAdopt:showAdopt,own:usr});
