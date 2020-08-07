@@ -144,7 +144,7 @@ router.post("/",(req,res)=>{
     console.log(req.body)
     Adoption.create(req.body).then(newAdoption=>{
         Pet.update({statusId:"2"}, {where: {id: newAdoption.petId},returning: true}).then(() => {
-            res.send("En Proceso");
+            res.redirect(`/users/profile/${req.body.adopterId}`);
       });
     })
   })
@@ -159,7 +159,7 @@ router.post("/",(req,res)=>{
             arrA.push(parseInt(prop))
         else if(obj[prop]=="R")
             arrR.push(parseInt(prop))
-        else
+        else if (obj[prop]=="C")
             arrC.push(parseInt(prop))
 
     }
@@ -186,7 +186,8 @@ router.post("/",(req,res)=>{
             const updCancelStat = await Adoption.update({cancelDate:new Date()},{where:{petId:arrC[i]},returning: true})
         }
    }
-    res.redirect("");
+    let path = `/users/profile/${req.body.userId}`;
+    res.redirect(path);
 });
 
 module.exports = router;

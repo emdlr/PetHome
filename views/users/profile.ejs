@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <link href="//db.onlinewebfonts.com/c/fc5a49c391d41d90e89afde248af7921?family=maydogg" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/css/app.css"/>
+    <link rel="icon" href="../images/icon_dog.png" type="image/x-icon" />
     <title>Perfil de Usuario</title>
   </head>
   <body>
@@ -90,10 +91,10 @@
                             <td><a href=<%= path %> alt=<%=pet.name%> > <%= pet.name %> </a></td>
                             <% let status='';
                             if(pet.statusId==1) {
-                                status='EN ADOPCION';%>
+                                status='En Adopcion';%>
                                 <td> <%=status%> </td>
                             <%}else if (pet.statusId==2){
-                                status='PENDIENTE POR APROBACION';
+                                status='Aprov. Pendiente';
                                 petStats=true; %>
                                 <td> <%=status%> </td>
                                 <td>
@@ -109,7 +110,7 @@
                     <%if(petStats){%>
                     <tr>
                         <td></td>
-                        <td></td>
+                        <td><input type="hidden" name='userId' value=<%=user.id%>></td>
                         <td>                                
                             <input type="submit" value="Procesar">
                         </td>
@@ -124,8 +125,16 @@
             <h3>Mis Adopiones</h3>
             <ul>
             <% adpingPets.forEach(pet =>{
-                let path = `/pets/profile/${pet.id}?own=${user.id}`;%>
-                <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%> </a> </li>
+                let path = `/pets/profile/${pet.id}?own=${user.id}`;
+                let adpStat='';
+                if(pet.statusId==1){
+                    adpStat='- En Adopcion';
+                } else if (pet.statusId==2){
+                    adpStat='- En Revision';
+                } else if (pet.statusId==3){
+                    adpStat='- Ya es tuyo !!';
+                }   %>
+                <li><a href=<%= path %> alt=<%=pet.name%> > <%=pet.name%></a> <%=adpStat%> </li>
             <%})%>
            </ul>
         </section>

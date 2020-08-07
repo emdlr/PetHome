@@ -19,11 +19,6 @@ const UserRoles = require("../models").Status;
   router.get("/profile/:id", (req, res) => {
     User.findByPk(req.params.id,{
       include: [
-        // {
-        //   model: Pet,
-        //   where: {statusId:{[$ne]:[3]}},
-        //   attributes: ["id","name","statusId"]
-        // },
         {
           model: Role,
           attributes:["id"]
@@ -107,38 +102,6 @@ const UserRoles = require("../models").Status;
                   }
               })
         });
-
-     
-                          // for(let i=0;i<usrP.Adoptions.length;i++) 
-                          // myAdoptings.push(usrP.Adoptions[i].petId)
-
-                          // let own=false;
-                          // let adp=false;
-
-                            // for(let i=0;i<usrP.Roles.length;i++)      
-                            //   if(usrP.Roles[i].id==1)
-                            //     own=true;
-
-                            // for(let i=0;i<usrP.Roles.length;i++)      
-                            //   if((usrP.Roles[i].id==2)&&(myAdoptings.length>0))
-                            //     adp=true;   
-
-                            // myAdoptings.length>0?true:myAdoptings.push(-1);
-                            // Pet.findAll({where: {
-                            //                     id:{[$in]:myAdoptings},
-                            //                     statusId:{[$in]:[2,3]}},
-                            //                     attributes: ["id","name"]}).then(adpPets=>{
-                            //     console.log(adpPets)
-                            //     res.render("users/profile.ejs", {
-                            //       user: usrP,
-                            //       isOwner:own,
-                            //       adpingPets:adpPets,
-                            //       isAdopter:adp
-
-                            // })
-
-                            // });
-
     });
   });
   

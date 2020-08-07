@@ -1,3 +1,7 @@
+body{
+    background : url('../images/icon.png') white;
+    background-size:5% 5%;
+}
 #bodyHome{
     /* background: blue; */
     width: 99vw;
@@ -7,16 +11,16 @@
     display: grid;
     grid-template-rows: 60% 37% 3%; 
     grid-template-columns: 1fr;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     font-family: 'maydogg';
 }
 #headerHome{
     grid-row: 1;
-    background: url('../img/paw.png') white;
+    background: url('../images/paw.png') white; 
     background-repeat: no-repeat;
     background-size:30% 100%;
     height: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-flow: column;
     align-items: flex-end;
@@ -26,7 +30,7 @@
     grid-row: 2;
     /* background: green; */
     height: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -36,7 +40,7 @@
     grid-row: 3;
     /* background: yellow; */
     height: 100%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     
 }
 #mPhrase{
