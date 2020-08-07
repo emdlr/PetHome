@@ -8,10 +8,10 @@
     <title>Perfil de Usuario</title>
   </head>
   <body>
-    <h1>Bienvenido <%= user.name%> </h1><hr>
+    <h1>Bienvenido <%= user.name%> </h1><hr align="left">
     <section>
     <form action="/auth/profile/<%=user.id%>?_method=PUT" method="POST">
-        <table class="userForms">
+        <table class="tableForms">
             <tr>
                 <td><b>Nombre:</b></td>
                 <td><input type="text" name="name" value=<%= user.name%>></td>
@@ -52,35 +52,39 @@
                 <td><b>ZIP:</b></td>
                 <td><input type="text" name="zip" value=<%= user.zip %>></td>
             </tr>
-            <tr>
-                <td>
+            </table>
+            <container>
+                <div>
                     <center>
                         <input type="submit" value="Editar" />
                     </center>
-                </td>
+                </div>
             </form>
             <form action="/users/<%=user.id%>?_method=DELETE" method="POST">
-                <td>
+                <div>
                     <center>
                         <input type="submit" value="Borrar" />
                     </center>
-                </td>
+                </div>
             </form>
             <%if(canCreate){%>
             <form action="/pets/new/<%=user.id%>" method="GET">
-                <td>
+                <div>
                     <center>
                         <input id="createPet" type="submit" value="Crear Adopcion">
                     </center>
-                </td>
+                </div>
             </form>
             <%}%>
-            </tr>
-        </table>
+            <div>
+                    <% let path=`/adoptions?own=${user.id}`%>
+                <a class="button" href=<%= path %> alt='Gallery' ><div>Ir a Galeria </div></a>
+            </div>
+        </container>
     </section>
      
     <% if(isOwner){ %>
-    <section>
+    <section class="adpProc">
         <h3>Mis Mascotas en Adopcion</h3>
         <form action="/adoptions?_method=PUT" method="POST">
                 <table>
@@ -121,7 +125,7 @@
     </section>
     <%};
     if(isAdopter){%>
-        <section>
+        <section class="adpProc">
             <h3>Mis Adopiones</h3>
             <ul>
             <% adpingPets.forEach(pet =>{
@@ -139,9 +143,5 @@
            </ul>
         </section>
     <%}%>
-        <section>
-            <% let path=`/adoptions?own=${user.id}`%>
-        <a href=<%= path %> alt='Gallery' ><div>Ir a Galeria </div></a>
-        </section>
   </body>
 </html>

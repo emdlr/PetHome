@@ -1,4 +1,3 @@
-# PetHome
 <img src="https://github.com/emdlr/PetHome/blob/master/public/images/icon_plate.png" alt="PetHome" width="45" height="45" />
 
 # PetHome Project
@@ -70,6 +69,11 @@ Technology Stack to develop this application:
 ---
 
 ![FlowDiagram](https://github.com/emdlr/PetHome/blob/master/Documentation/flowdiagram.png)
+
+**Database E-R Diagram**
+---
+
+![DBDiagram](https://github.com/emdlr/PetHome/blob/master/Documentation/ERDiagram.png)
 
 **Wireframes**
 ---

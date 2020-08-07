@@ -10,7 +10,7 @@
 </head>
 <body id="bodyGallery">
     <center>
-        <h1>Galeria de Mascotas</h1><hr>
+        <h1><span>Galeria de Mascotas</span></h1><hr>
         <section>
             <table>
                 <th colspan="3">Mascotas en</th>
@@ -26,7 +26,7 @@
                 </tr>
             </table>
         </section>
-        <main>
+        <main id='gallery'>
            <% let own= (location.own!=""&&location.own!==undefined)?location.own:"";%>
             <% if(!isMore){
                 pets.forEach((pet,i) =>{ %>

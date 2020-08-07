@@ -1,9 +1,19 @@
 body{
-    background : url('../images/icon.png') white;
-    background-size:5% 5%;
+    background : url('../images/turtle.png') white;
+    background-repeat: repeat;
+    background-size:100% 100%;
+    background-position: right bottom;
+    font-family: 'maydogg';
+}
+hr{
+    width: 35vw;
+    height: 1vh;
+}
+ul{
+    list-style-type: none;
 }
 #bodyHome{
-    /* background: blue; */
+    background: none;
     width: 99vw;
     height: 99vh;
     margin: 0;
@@ -13,6 +23,37 @@ body{
     grid-template-columns: 1fr;
     /* border: 1px solid black; */
     font-family: 'maydogg';
+}
+.button,
+[type$="submit"] {
+    background-color: tomato; /* Green */
+    border-style: solid;
+    border-radius: 30px;
+    color: white;
+    padding: 1vh 2vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2vw;
+    
+  }
+  .button:hover,
+  [type$="submit"]:hover{
+    background-color: rgb(119, 186, 245);
+  }
+  container{
+    width: 60vw;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-around;
+  }
+span{
+    border-style: solid;
+    border-radius: 30px;
+    border-style: double;
+    padding: 1vh 1vw;
+    border-color: green;
 }
 #headerHome{
     grid-row: 1;
@@ -36,6 +77,35 @@ body{
     align-items: center;
     justify-content: flex-start;
 }
+#bodyGallery{
+    display: grid;
+    grid-template-rows: 10% 30% 60%; 
+    grid-template-columns: 1fr;
+    /* border: 1px solid black; */
+    font-family: 'maydogg';
+}
+#gallery{
+    grid-row: 3;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content:space-around; 
+}
+.adpProc{
+    border-style: dotted;
+    padding: 0.1vh 1vw;
+    font-size: 1.5vw;
+    width: 30vw;
+    border-radius: 40px;
+    border-color: goldenrod;
+}
+.tableForm,
+input[type$="text"],
+input[type$="password"]{
+    width: 20vw;
+    height: 2vh;
+}
+
 #footerHome{
     grid-row: 3;
     /* background: yellow; */
@@ -63,9 +133,6 @@ body{
     font-size: 2vw;
     font-weight: bold;
 }
-/* div{
-    border: 1px solid black;
-} */
 .galPic{
     border-radius: 60px;
     width: 10vw;
@@ -94,10 +161,13 @@ body{
 .petForms{
     font-family: 'maydogg';
 }
-td{
+td {
     text-align: start;
     font-size: 1.5vw;
     font-weight: bolder;
+}
+h3{
+    text-decoration: underline;
 }
 .profilePic{
     border-radius: 60px;
@@ -108,7 +178,6 @@ a.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
-
     text-decoration: none;
     color: initial;
 }
