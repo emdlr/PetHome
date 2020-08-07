@@ -65,6 +65,7 @@
                     </center>
                 </td>
             </form>
+            <%if(canCreate){%>
             <form action="/pets/new/<%=user.id%>" method="GET">
                 <td>
                     <center>
@@ -72,6 +73,7 @@
                     </center>
                 </td>
             </form>
+            <%}%>
             </tr>
         </table>
     </section>
@@ -81,7 +83,8 @@
         <h3>Mis Mascotas en Adopcion</h3>
         <form action="/adoptions?_method=PUT" method="POST">
                 <table>
-                    <% user.Pets.forEach(pet =>{
+                    <% let petStats=false;
+                        oPets.forEach(pet =>{
                         let path = `/pets/profile/${pet.id}?own=${user.id}`; %>
                         <tr>
                             <td><a href=<%= path %> alt=<%=pet.name%> > <%= pet.name %> </a></td>
@@ -89,7 +92,9 @@
                             if(pet.statusId==1) {
                                 status='EN ADOPCION';%>
                                 <td> <%=status%> </td>
-                            <%}else{status='PENDIENTE POR APROBACION';%>
+                            <%}else if (pet.statusId==2){
+                                status='PENDIENTE POR APROBACION';
+                                petStats=true; %>
                                 <td> <%=status%> </td>
                                 <td>
                                         <input type="radio" name=<%=pet.id%> value="A">
@@ -101,6 +106,7 @@
                                 </td>
                         </tr> 
                     <%}})%>
+                    <%if(petStats){%>
                     <tr>
                         <td></td>
                         <td></td>
@@ -108,6 +114,7 @@
                             <input type="submit" value="Procesar">
                         </td>
                     </tr>
+                    <%}%>
                 </table>
         </form>
     </section>

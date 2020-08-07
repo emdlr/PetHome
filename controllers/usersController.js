@@ -13,20 +13,17 @@ const Pet = require('../models').Pet;//Bringing object to make joins with this m
 const Role = require("../models").Role;
 const Adoption = require("../models").Adoption;
 const Status = require("../models").Status;
+const UserRoles = require("../models").Status;
 
   // GET USERS PROFILE
   router.get("/profile/:id", (req, res) => {
     User.findByPk(req.params.id,{
       include: [
-        {
-          model: Pet,
-          where: {statusId:{[$ne]:[3]}},
-          attributes: ["id","name","statusId"]
-        },
-        {
-          model: Adoption,//Adopciones que yo solicite
-          attributes: ["petId"]
-        },
+        // {
+        //   model: Pet,
+        //   where: {statusId:{[$ne]:[3]}},
+        //   attributes: ["id","name","statusId"]
+        // },
         {
           model: Role,
           attributes:["id"]
@@ -34,43 +31,104 @@ const Status = require("../models").Status;
       ]
     }).then((usrP) => {
       let myAdoptings=[];
-      for(let i=0;i<usrP.Adoptions.length;i++) 
-          myAdoptings.push(usrP.Adoptions[i].petId)
+      let canCreate=false;
+      if(usrP.Roles.length==0){
+        res.send('NO ROLE ASSIGNED')
+      }
+      let isAdopter=false;
+      let isOwner=false;
+      for(let i=0;i<usrP.Roles.length;i++){
+          if(usrP.Roles[i].id==1){
+              isOwner=true;
+              canCreate=true;
+          }
+          if(usrP.Roles[i].id==2){
+              isAdopter=true;
+          }
+      }//Fin del For
+      console.log('lalength')
+      console.log(usrP.length)
 
-      let own=false;
-      let adp=false;
+      console.log(isOwner);
+      console.log(isAdopter);
+      console.log(usrP);
+      let adpPets=[];
+        Pet.findAll({where: {//My Created Pets
+                        userId:usrP.id,
+                        statusId:{[$in]:[1,2]}},
+                        attributes: ["id","name","statusId"]}).then(oPets=>{
+              if(oPets.length<=0){
+                  isOwner=false;//Vuelvo false la variable para que no despliegue si no 
+              }
+              Adoption.findAll({where:{adopterId:usrP.id}}).then((adpS)=>{//Checo mis solicitudes
+                  if(adpS.length<=0){
+                    isAdopter=false;//Vuelvo false la variable para que no despliegue si no 
+                      
+                    console.log('Checo oPets 1')
+                    console.log(oPets)
+                    console.log('Checo adpS 1')
+                    console.log(adpS)
+                    res.render("users/profile.ejs", {
+                                        user: usrP,
+                                        oPets:oPets,
+                                        canCreate:canCreate,
+                                        isOwner:isOwner,
+                                        adpingPets:adpS,
+                                        isAdopter:isAdopter
+                      });
+                  }else{
+                      Pet.findAll({where:{id:{[$in]:adpS.id}}}).then((ownP)=>{
+                        console.log('Checo oPets 2')
+                        console.log(oPets)
+                        console.log('Checo adpS 2')
+                        console.log(adpS)
+                                  res.render("users/profile.ejs", {
+                                    user: usrP,
+                                    canCreate:canCreate,
+                                    oPets:ownP,
+                                    isOwner:isOwner,
+                                    adpingPets:adpS,
+                                    isAdopter:isAdopter
+                                  });
 
-        for(let i=0;i<usrP.Roles.length;i++)      
-          if(usrP.Roles[i].id==1)
-            own=true;
-
-        for(let i=0;i<usrP.Roles.length;i++)      
-          if((usrP.Roles[i].id==2)&&(myAdoptings.length>0))
-             adp=true;   
-
-        myAdoptings.length>0?true:myAdoptings.push(-1);
-        Pet.findAll({where: {
-                            id:{[$in]:[myAdoptings]},
-                            statusId:{[$in]:[2,3]}},
-                            attributes: ["id","name"]}).then(adpPets=>{
-            console.log(adpPets)
-             res.render("users/profile.ejs", {
-              user: usrP,
-              isOwner:own,
-              adpingPets:adpPets,
-              isAdopter:adp
+                      })
+                  }
+              })
         });
-      });
+
+     
+                          // for(let i=0;i<usrP.Adoptions.length;i++) 
+                          // myAdoptings.push(usrP.Adoptions[i].petId)
+
+                          // let own=false;
+                          // let adp=false;
+
+                            // for(let i=0;i<usrP.Roles.length;i++)      
+                            //   if(usrP.Roles[i].id==1)
+                            //     own=true;
+
+                            // for(let i=0;i<usrP.Roles.length;i++)      
+                            //   if((usrP.Roles[i].id==2)&&(myAdoptings.length>0))
+                            //     adp=true;   
+
+                            // myAdoptings.length>0?true:myAdoptings.push(-1);
+                            // Pet.findAll({where: {
+                            //                     id:{[$in]:myAdoptings},
+                            //                     statusId:{[$in]:[2,3]}},
+                            //                     attributes: ["id","name"]}).then(adpPets=>{
+                            //     console.log(adpPets)
+                            //     res.render("users/profile.ejs", {
+                            //       user: usrP,
+                            //       isOwner:own,
+                            //       adpingPets:adpPets,
+                            //       isAdopter:adp
+
+                            // })
+
+                            // });
+
     });
   });
-  
-  // EDIT PROFILE
-  // router.put("/profile/:id", (req, res) => {
-  //   console.log(req.body)
-  //   User.update(req.body, {where: {id: req.params.id},returning: true}).then((updatedUser) => {
-  //     res.redirect(`/users/profile/${req.params.id}`);
-  //   });
-  // });
   
   // DELETE USER
   router.delete("/:id", (req, res) => {

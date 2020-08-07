@@ -30,19 +30,19 @@ router.get("/", (req,res) =>{
                 });
             });
         });
+    }).catch(err=>{
+        console.log(err)
     });
 });
 router.get("/gallery", (req,res) =>{
     let location = req.query;
     location.own = (location.own!=""&&location.own!==undefined)?location.own:-1;
-    console.log('consologeando el location own')
-    console.log(location.own)
     let isMoreOne=false;
     if(location.country!=""&&location.state!=""&&location.city!=""){
             console.log('entra aqui 3')
         Pet.findAll({where: {
                             userId:{[$notIn]:[location.own]},
-                            statusId:{[$nE]:[2,3]},
+                            statusId:{[$notIn]:[2,3]},
                             country:{[$iLike]:location.country},
                             state:{[$iLike]:location.state},
                             city:{[$iLike]:location.city}},
@@ -64,7 +64,7 @@ router.get("/gallery", (req,res) =>{
                 console.log('entra aqui 2')
             Pet.findAll({where: {
                                 userId:{[$notIn]:[location.own]},
-                                statusId:{[$nE]:[2,3]},
+                                statusId:{[$notIn]:[2,3]},
                                 country:{[$iLike]:location.country},
                                 state:{[$iLike]:location.state}},
                                 include: [
@@ -84,7 +84,7 @@ router.get("/gallery", (req,res) =>{
                 console.log('entra aqui 1')
         Pet.findAll({where: {
                             userId:{[$notIn]:[location.own]},
-                            statusId:{[$nE]:[2,3]},
+                            statusId:{[$notIn]:[2,3]},
                             country:{[$iLike]:location.country}},
                             include: [
                                 {
@@ -105,7 +105,7 @@ router.get("/gallery", (req,res) =>{
         console.log(location)
             Pet.findAll({where: {
                                 userId:{[$notIn]:[location.own]},
-                                statusId:{[$nE]:[2,3]}},
+                                statusId:{[$notIn]:[2,3]}},
                                 include: [
                                 {
                                     model: Picture,
@@ -186,7 +186,7 @@ router.post("/",(req,res)=>{
             const updCancelStat = await Adoption.update({cancelDate:new Date()},{where:{petId:arrC[i]},returning: true})
         }
    }
-    res.send("Great");
+    res.redirect("");
 });
 
 module.exports = router;
