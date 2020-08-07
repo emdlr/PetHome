@@ -8,7 +8,7 @@
     <title>Perfil de Usuario</title>
   </head>
   <body>
-    <h1>Bienvenido <%= user.name%> </h1>
+    <h1>Bienvenido <%= user.name%> </h1><hr>
     <section>
     <form action="/auth/profile/<%=user.id%>?_method=PUT" method="POST">
         <table class="userForms">

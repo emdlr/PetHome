@@ -1,4 +1,5 @@
-<img src="https://github.com/emdlr/Hangman/blob/master/Exec/img/icon.png" alt="PetHome" width="50" height="50" />
+# PetHome
+<img src="https://github.com/emdlr/PetHome/blob/master/public/images/icon_plate.png" alt="PetHome" width="45" height="45" />
 
 # PetHome Project
 ---
@@ -15,7 +16,7 @@ This is a Full Stack RESTful Application whose purpose is to encourage people ou
 
 There are hundreds of pets outside on the streets that would love to have a home. So, through this application, someone can take them out of the streets and broadcast an adoption. So that, those who would be interested in any pet, can apply to adopt it after verifying some security data.
 
-**M V P**
+**User Cases**
 ---
 
 - As a member I want to be able to have a username for this app
@@ -36,10 +37,10 @@ Technology Stack to develop this application:
 - HTML 5
 - CSS
 - Javascript
- - Node.js
- - Json
- - Sequelize
- - Ejs
+  - Node.js
+  - Json
+  - Sequelize
+  - Ejs
 - Postgres DB
 
  _*All documentation will be stored into the PetHome Project repository setup on GitHub under “emdlr” user account. This full stack application will be rendered on the browser._
@@ -68,23 +69,50 @@ Technology Stack to develop this application:
 **Flow Diagram**
 ---
 
-![FlowDiagram](https://github.com/emdlr/Hangman/blob/master/Diagrams/flowdiagram.png)
+![FlowDiagram](https://github.com/emdlr/PetHome/blob/master/Documentation/flowdiagram.png)
 
 **Wireframes**
 ---
+
+**Home**
+
+![Wireframe1](https://github.com/emdlr/PetHome/blob/master/Documentation/wf1.png)
+
+**Signup**
+
+![Wireframe2](https://github.com/emdlr/PetHome/blob/master/Documentation/wf2.png)
+
 **Login**
 
-![Wireframe1](https://github.com/emdlr/Hangman/blob/master/Diagrams/wf1.png)
+![Wireframe3](https://github.com/emdlr/PetHome/blob/master/Documentation/wf3.png)
 
-**Main Game Window**
+**User Profile**
 
-![Wireframe1](https://github.com/emdlr/Hangman/blob/master/Diagrams/wf2.png)
+![Wireframe4](https://github.com/emdlr/PetHome/blob/master/Documentation/wf5.png)
+
+**Pet Profile**
+
+![Wireframe5](https://github.com/emdlr/PetHome/blob/master/Documentation/wf6.png)
+
+**Gallery**
+
+![Wireframe5](https://github.com/emdlr/PetHome/blob/master/Documentation/wf4.png)
+
+**Roadblocks**
+---
+Understand how to handle Models relationships according to sequelize logic
+
+**Next Steps**
+---
+
+This application will have an S.O.S functionality in which those who sign up, will have the option to volunteer as a rescuer in their city, these will receive an email with the report of whoever is signed up to this app.
 
 **Installation**
 
 - Internet Connectivity
 - No high Internet speed required
-- Click on the [LINK](https://emdlr.github.io/PetHome/) and have fun!
+- [GitHub Repository](https://github.com/emdlr/PetHome)
+- Click on the [LINK](https://pethomeapp.herokuapp.com/) and have your new friend Now!
 
 **More Data**
 You can also take a look to the [project document](https://github.com/emdlr/PetHome/blob/master/Documentation/PetHome%20Charter.docx) for more info.
