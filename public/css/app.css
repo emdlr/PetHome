@@ -94,8 +94,8 @@ span{
 .adpProc{
     border-style: dotted;
     padding: 0.1vh 1vw;
-    font-size: 1.5vw;
-    width: 30vw;
+    font-size: 1vw;
+    width: 40vw;
     border-radius: 40px;
     border-color: goldenrod;
 }
@@ -130,8 +130,9 @@ input[type$="password"]{
 .actions,
 #actions {
     text-align: center;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: bold;
+    border-radius: 2vw;
 }
 .galPic{
     border-radius: 60px;

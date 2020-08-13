@@ -101,7 +101,7 @@ router.post("/login", (req, res) => {
           }
         });
       }else{
-         Message.findByPk(1).then((message)=>{
+         Message.findByPk('C-0001').then((message)=>{
             const ms = (message)?message.message:"";
             res.send(ms);
         });

@@ -1,6 +1,8 @@
 const express = require("express");
 const sequelize = require('sequelize');
 const picture = require("../models/picture");
+const SendEmail = require("../classes/sendEmail");
+const e = require("express");
 const router = express.Router();
 
 $iLike = sequelize.Op.iLike;
@@ -123,12 +125,12 @@ router.get("/gallery", (req,res) =>{
 });
 
 router.get("/:id",(req,res)=>{
-    Pet.findByPk(req.params.id,{
+    Pet.findByPk(req.params.id,{//Pet info
         attributes: ["id","userId","name", "country", "state","city"]
     }).then((pet)=>{
-        Picture.findByPk(req.query.pic).then((pic) =>{
-            User.findByPk(pet.userId,{
-                attributes: ["id","name","email"]
+        Picture.findByPk(req.query.pic).then((pic) =>{//Pet Picture
+            User.findByPk(pet.userId,{ //Pet Owner info
+                attributes: ["id","name","email","telephone"]
             }).then((current)=>{
                 res.render("adoptions/adoption.ejs",{
                     pet:pet,
@@ -141,13 +143,19 @@ router.get("/:id",(req,res)=>{
   })
 })
 router.post("/",(req,res)=>{
-    console.log(req.body)
-    Adoption.create(req.body).then(newAdoption=>{
+   console.log(req.body)
+   Adoption.create(req.body).then(newAdoption=>{
         Pet.update({statusId:"2"}, {where: {id: newAdoption.petId},returning: true}).then(() => {
-            res.redirect(`/users/profile/${req.body.adopterId}`);
-      });
+            User.findByPk(req.body.adopterId,{attributes:["name","email","telephone"]}).then((adopter)=>{
+                let mailExtras = {oName:req.body.poName,aName:adopter.name,aEmail:adopter.email,aTel:adopter.telephone,pName:req.body.petName}
+                let email= new SendEmail("A",req.body.poEmail,adopter.email,req.body.message,mailExtras);
+                email.send();
+                res.redirect(`/users/profile/${req.body.adopterId}`);
+
+            })
+       });
     })
-  })
+})
   router.put("/",async (req,res) => {
     let obj =req.body;
     let arrA =[];
@@ -170,23 +178,51 @@ router.post("/",(req,res)=>{
 
    if(arrA.length>0){
        for(let i=0;i<arrA.length;i++){
-            const updAdoptedPets = await Pet.update({statusId:3},{where:{id:arrA[i]},returning: true})
+            const updAdoptedPet = await Pet.update({statusId:3},{where:{id:arrA[i]},returning: true})
             const updAdoptedStat = await Adoption.update({adoptionDate:new Date()},{where:{petId:arrA[i]},returning: true})
+            const petData =  await Pet.findByPk(arrA[i],{attributes:["name"]});
+            const ownerData =  await User.findByPk(req.body.oId,{attributes:["name","email","telephone"]});
+            const adpId = await Adoption.findOne({where:{petId:arrA[i]},attributes:["adopterId"]}); 
+            const adopterData =  await User.findByPk(adpId.adopterId,{attributes:["name","email","telephone"]});  
+            let eBody = {oName:ownerData.name,oEmail:ownerData.email,oTel:ownerData.telephone,
+                         aName:adopterData.name,aEmail:adopterData.email,aTel:adopterData.telephone,
+                        pName:petData.name};
+            let email = new SendEmail("AP",eBody.aEmail,eBody.oEmail,"",eBody);
+            email.send();
        }
    }
    if(arrR.length>0){
         for(let i=0;i<arrR.length;i++){
             const updRejectPets = await Pet.update({statusId:1},{where:{id:arrR[i]},returning: true})
             const updRejectStat = await Adoption.update({rejectionDate:new Date()},{where:{petId:arrR[i]},returning: true})
+            const petData =  await Pet.findByPk(arrR[i],{attributes:["name"]});
+            const ownerData =  await User.findByPk(req.body.oId,{attributes:["name","email","telephone"]});
+            const adpId = await Adoption.findOne({where:{petId:arrR[i]},attributes:["adopterId"]}); 
+            const adopterData =  await User.findByPk(adpId.adopterId,{attributes:["name","email","telephone"]});  
+            let eBody = {oName:ownerData.name,oEmail:ownerData.email,oTel:ownerData.telephone,
+                         aName:adopterData.name,aEmail:adopterData.email,aTel:adopterData.telephone,
+                        pName:petData.name};
+            let email = new SendEmail("R",eBody.aEmail,eBody.oEmail,"",eBody);
+            email.send();
         }
    }
    if(arrC.length>0){
         for(let i=0;i<arrC.length;i++){
             const updCancelPets = await Pet.update({statusId:1},{where:{id:arrC[i]},returning: true})
             const updCancelStat = await Adoption.update({cancelDate:new Date()},{where:{petId:arrC[i]},returning: true})
+            const petData =  await Pet.findByPk(arrC[i],{attributes:["name"]});
+            const ownerData =  await User.findByPk(req.body.oId,{attributes:["name","email","telephone"]});
+            const adpId = await Adoption.findOne({where:{petId:arrC[i]},attributes:["adopterId"]}); 
+            const adopterData =  await User.findByPk(adpId.adopterId,{attributes:["name","email","telephone"]});  
+            let eBody = {oName:ownerData.name,oEmail:ownerData.email,oTel:ownerData.telephone,
+                         aName:adopterData.name,aEmail:adopterData.email,aTel:adopterData.telephone,
+                        pName:petData.name};
+            let email = new SendEmail("C",eBody.aEmail,eBody.oEmail,"",eBody);
+            email.send();
+
         }
    }
-    let path = `/users/profile/${req.body.userId}`;
+    let path = `/users/profile/${req.body.oId}`;
     res.redirect(path);
 });
 

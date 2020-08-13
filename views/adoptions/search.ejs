@@ -16,7 +16,7 @@
            <tr>
                <td>Pais:</td>
                <td>
-                <select name="country" id="country">
+                <select name="country" class="actions" id="country">
                     <option></option>
                     <% countries.map(country =>{%>
                         <option><%=country.country%></option>
@@ -27,7 +27,7 @@
            <tr>
             <td>Estado:</td>
             <td>
-             <select name="state" id="state">
+             <select name="state" class="actions" id="state">
                  <option></option>
                  <% states.map(state =>{%>
                      <option><%=state.state%></option>
@@ -38,7 +38,7 @@
         <tr>
             <td>Ciudad:</td>
             <td>
-             <select name="city" id="city">
+             <select name="city" class="actions" id="city">
                  <option></option>
                  <% cities.map(city =>{%>
                      <option><%=city.city%></option>

@@ -41,19 +41,11 @@ const UserRoles = require("../models").Status;
               isAdopter=true;
           }
       }//Fin del For
-      console.log('lalength')
-      console.log(usrP.length)
-
-      console.log(isOwner);
-      console.log(isAdopter);
-      console.log(usrP);
       let forEpets=[];
         Pet.findAll({where: {//My Created Pets
                         userId:usrP.id,
                         statusId:{[$in]:[1,2]}},
                         attributes: ["id","name","statusId"]}).then(oPets=>{
-            console.log('Checando las oPets')
-            console.log(oPets)
               if(oPets.length<=0){
                   isOwner=false;//Vuelvo false la variable para que no despliegue si no 
               }
@@ -61,15 +53,10 @@ const UserRoles = require("../models").Status;
               Adoption.findAll({where:{//are you also adopter?
                                   adopterId:usrP.id},
                                   attributes:["id","petId","adopterId"]}).then(adpS=>{//Checo mis solicitudes
-                console.log('Checando las adpD')
+
                   if(adpS.length<=0){
                     isAdopter=false;//Vuelvo false la variable para que no despliegue si no 
                       
-                    console.log('Checo oPets 1')
-                    console.log(oPets)
-                    console.log('Checo adpS 1')
-                    console.log(adpS)
-  
                     res.render("users/profile.ejs", {
                                         user: usrP,
                                         oPets:oPets,
@@ -79,16 +66,13 @@ const UserRoles = require("../models").Status;
                                         isAdopter:isAdopter
                       });
                   }else{
-                      console.log('WhatTheHell')
+
                       adpS.forEach(element => {
                           forEpets.push(element.petId);
                       });
                       console.log(forEpets)
                       Pet.findAll({where:{id:{[$in]:forEpets}}}).then(adpPets=>{
-                        console.log('Checo oPets 2')
-                        console.log(oPets)
-                        console.log('Checo adpPets 2')
-                        console.log(adpPets)
+
                                   res.render("users/profile.ejs", {
                                     user: usrP,
                                     canCreate:canCreate,
